@@ -1,0 +1,155 @@
+@use 'partials/theme';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/bootstrap';
+// Variables
+$sidebar-width: 250px;
+$sidebar-collapsed-width: 70px;
+$mobile-breakpoint: 768px;
+$burger-bar-height: 3px;
+$burger-bar-color: #333;
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: theme.$bg-color;
+    color: theme.$text-color;
+    overflow-x: hidden;
+}
+
+#sidebar {
+    width: $sidebar-width;
+    background-color: theme.$sidebar-bg;
+    transition: all 0.3s;
+
+    .nav-link span {
+        display: inline;
+    }
+    .img-sidebar {
+        max-width: 60px !important;
+    }
+}
+
+.sidebar-collapsed {
+    #sidebar {
+        width: $sidebar-collapsed-width;
+
+        .nav-link span {
+            display: none;
+        }
+    }
+
+    #main-content {
+        margin-left: $sidebar-collapsed-width;
+    }
+}
+
+// Main content area
+#main-content {
+    margin-left: $sidebar-width;
+    transition: all 0.3s;
+}
+
+.dark-theme {
+    background-color: map-get(theme.$dark-theme, bg-color);
+    color: map-get(theme.$dark-theme, text-color);
+
+    #sidebar {
+        background-color: map-get(theme.$dark-theme, sidebar-bg) !important;
+       
+    }
+    #toggleSidebar {
+        span {
+            background-color: map-get(theme.$dark-theme, text-color) !important;
+        }
+    }
+
+    .nav-link {
+        color: map-get(theme.$dark-theme, text-color) !important;
+    }
+
+    .navbar {
+        background-color: map-get(theme.$dark-theme, sidebar-bg) !important;
+    }
+}
+
+// Responsive for mobile
+@media (max-width: $mobile-breakpoint) {
+    #sidebar {
+        position: absolute;
+        left: -$sidebar-width;
+        z-index: 999;
+        height: 100vh;
+    }
+
+    #toggleSidebar {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001;
+        background-color: #fff;
+        padding: 8px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-mobile-active {
+        #sidebar {
+            left: 0;
+        }
+    }
+
+    #main-content,
+    .sidebar-collapsed #main-content {
+        margin-left: 0 !important;
+    }
+}
+
+// Modern hamburger menu
+.burger {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    span {
+        position: absolute;
+        height: $burger-bar-height;
+        width: 100%;
+        background: $burger-bar-color;
+        left: 0;
+        transition: 0.3s;
+        border-radius: 3px;
+
+        &:nth-child(1) {
+            top: 0;
+        }
+
+        &:nth-child(2) {
+            top: 8px;
+        }
+
+        &:nth-child(3) {
+            top: 16px;
+        }
+    }
+
+    &.active {
+        span {
+            &:nth-child(1) {
+                top: 8px;
+                transform: rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+
+            &:nth-child(3) {
+                top: 8px;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
