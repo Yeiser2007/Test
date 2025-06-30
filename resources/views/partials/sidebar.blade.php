@@ -26,6 +26,12 @@
                     <span>Preguntas</span>
                 </a>
             </li>
+            <hr>
+            <li class="nav-item mb-2">
+                <a href="{{ route('logout') }}" class="nav-link d-flex align-items-center">
+                    <i class="bi bi-box-arrow-right fs-5 me-2"></i><span>Cerrar Sesión</span></a>
+
+            </li>
         </ul>
     </div>
 </div>

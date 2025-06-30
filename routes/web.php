@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
 
    
     Route::get('/user/data',[UserController::class, 'getUsers'])->name('user.data');
-    
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
     
 
 
